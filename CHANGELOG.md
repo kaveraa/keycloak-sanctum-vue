@@ -1,0 +1,20 @@
+# Changelog
+
+**FR** Toutes les évolutions notables du paquet sont listées ici. Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/).
+
+**EN** All important changes of the package are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
+
+## [1.0.0] - 2026-09-25
+
+### Ajouté / Added
+
+- **FR** Plugin Vue `createKeycloakSanctum()` et composable `useAuth()` : utilisateur, rôles et jeton réactifs, connexion, page de retour (`handleCallback()`), déconnexion API + Keycloak.
+  **EN** Vue plugin `createKeycloakSanctum()` and `useAuth()` composable: reactive user, roles and token, login, return page (`handleCallback()`), API + Keycloak logout.
+- **FR** `auth.fetch()` : appels à l'API avec le jeton, jamais envoyé à un autre domaine, session effacée sur une réponse 401.
+  **EN** `auth.fetch()`: API calls with the token, never sent to another domain, session cleared on a 401 answer.
+- **FR** `attachAxios()` pour une instance axios, et garde de navigation `createAuthGuard()` pour vue-router 4 et 5 (`meta.requiresAuth`, `meta.roles`).
+  **EN** `attachAxios()` for an axios instance, and `createAuthGuard()` navigation guard for vue-router 4 and 5 (`meta.requiresAuth`, `meta.roles`).
+- **FR** Suivi de la session entre onglets, et déconnexion après inactivité avec avertissement.
+  **EN** Session sync between tabs, and logout after inactivity with a warning.
+
+[1.0.0]: https://github.com/kaveraa/keycloak-sanctum-vue/releases/tag/v1.0.0

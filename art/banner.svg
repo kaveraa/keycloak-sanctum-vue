@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="440" viewBox="0 0 1280 440">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#35495E"/>
+      <stop offset="1" stop-color="#243240"/>
+    </linearGradient>
+    <clipPath id="card">
+      <rect width="1280" height="440" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#card)">
+    <rect width="1280" height="440" fill="url(#bg)"/>
+    <!-- Formes décoratives -->
+    <path d="M-40 440 L140 120 L320 440 Z" fill="#42B883" opacity="0.10"/>
+    <path d="M40 440 L140 262 L240 440 Z" fill="#42B883" opacity="0.14"/>
+    <circle cx="1240" cy="-20" r="140" fill="#42B883" opacity="0.08"/>
+  </g>
+
+  <!-- Titre -->
+  <g font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+    <rect x="80" y="92" width="150" height="36" rx="18" fill="#42B883"/>
+    <text x="155" y="117" font-size="18" font-weight="700" fill="#1B2A36" text-anchor="middle" letter-spacing="1">VUE 3</text>
+    <text x="78" y="196" font-size="58" font-weight="800" fill="#FFFFFF">Keycloak</text>
+    <text x="78" y="258" font-size="58" font-weight="800" fill="#42B883">Sanctum</text>
+    <text x="80" y="306" font-size="23" fill="#B8C4CE">Login, roles and API calls</text>
+    <text x="80" y="336" font-size="23" fill="#B8C4CE">for your Laravel back-end</text>
+  </g>
+
+  <!-- Fenêtre de code -->
+  <g>
+    <rect x="600" y="72" width="600" height="296" rx="16" fill="#1B2A36" stroke="#42B883" stroke-opacity="0.35" stroke-width="2"/>
+    <circle cx="630" cy="102" r="7" fill="#FF5F57"/>
+    <circle cx="654" cy="102" r="7" fill="#FEBC2E"/>
+    <circle cx="678" cy="102" r="7" fill="#28C840"/>
+    <text x="1170" y="108" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#6B7F90" text-anchor="end">App.vue</text>
+
+    <g font-family="Consolas, 'Courier New', monospace" font-size="24">
+      <text x="636" y="162"><tspan fill="#C792EA">const</tspan><tspan fill="#E6EDF3"> auth = </tspan><tspan fill="#42B883">useAuth</tspan><tspan fill="#E6EDF3">()</tspan></text>
+      <text x="636" y="212"><tspan fill="#E6EDF3">auth.</tspan><tspan fill="#42B883">login</tspan><tspan fill="#E6EDF3">()</tspan></text>
+      <text x="636" y="252"><tspan fill="#E6EDF3">auth.user.value.name</tspan></text>
+      <text x="636" y="292"><tspan fill="#E6EDF3">auth.</tspan><tspan fill="#42B883">hasRole</tspan><tspan fill="#E6EDF3">(</tspan><tspan fill="#F4C27A">'admin'</tspan><tspan fill="#E6EDF3">)</tspan></text>
+      <text x="636" y="332"><tspan fill="#E6EDF3">auth.</tspan><tspan fill="#42B883">fetch</tspan><tspan fill="#E6EDF3">(</tspan><tspan fill="#F4C27A">'/api/projects'</tspan><tspan fill="#E6EDF3">)</tspan></text>
+    </g>
+  </g>
+</svg>

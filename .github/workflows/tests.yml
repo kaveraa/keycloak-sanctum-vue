@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    name: Node ${{ matrix.node }} - vue-router ${{ matrix.router }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20', '22', '24']
+        router: ['5']
+        include:
+          - { node: '22', router: '4' }
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: npm install --no-audit --no-fund
+
+      - name: Choose the vue-router version
+        run: npm install --no-save --no-audit --no-fund "vue-router@^${{ matrix.router }}"
+
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  # Contrôle unique exigé par la protection de la branche main :
+  # il ne passe que si tous les jobs de la matrice ont réussi.
+  tests-passed:
+    name: All tests passed
+    needs: tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "${{ needs.tests.result }}" = "success"
