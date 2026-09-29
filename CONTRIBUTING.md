@@ -39,7 +39,7 @@ Les tests utilisent Vitest avec un navigateur simulé (happy-dom) et un faux ser
 - **Tests** : toute correction ou nouveauté est accompagnée d'un test.
 - **Sécurité** : le jeton ne doit jamais partir vers un autre domaine que l'API, et aucune redirection ne doit mener vers un site externe.
 - **Dépendances** : le paquet ne dépend que de Vue (et de vue-router, facultatif). Pas de nouvelle dépendance sans discussion.
-- **Documentation** : mettez à jour `README.md` (français) **et** `README.en.md` (anglais simple), ainsi que le `CHANGELOG.md` (section en haut, en français et en anglais).
+- **Documentation** : mettez à jour `README.md` (anglais simple) **et** `README.fr.md` (français), ainsi que le `CHANGELOG.md` (section en haut, en français et en anglais).
 - **Commits** : en anglais simple, compréhensible par un débutant. Phrases courtes, pas de jargon.
 - **Caractères** : uniquement des caractères du clavier dans les fichiers et les commits : `-` (pas de tiret long), `"` (pas de guillemets français), `->` (pas de flèche), pas d'emoji ni d'icône. Les lettres accentuées du français sont acceptées.
 
@@ -90,7 +90,7 @@ The tests use Vitest with a simulated browser (happy-dom) and a fake server (`te
 - **Tests**: every fix or new feature comes with a test.
 - **Security**: the token must never go to another domain than the API, and no redirect may lead to an external site.
 - **Dependencies**: the package only depends on Vue (and vue-router, optional). No new dependency without a discussion.
-- **Documentation**: update `README.md` (French) **and** `README.en.md` (simple English), and the `CHANGELOG.md` (section at the top, in French and English).
+- **Documentation**: update `README.md` (simple English) **and** `README.fr.md` (French), and the `CHANGELOG.md` (section at the top, in French and English).
 - **Commits**: in simple English, easy to read for a beginner. Short sentences, no jargon.
 - **Characters**: only keyboard characters in files and commits: `-` (no long dash), `"` (no French quotes), `->` (no arrow), no emoji or icon. French accented letters are fine.
 

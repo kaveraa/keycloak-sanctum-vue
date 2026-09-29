@@ -4,53 +4,53 @@
 
 [![Tests](https://github.com/kaveraa/keycloak-sanctum-vue/actions/workflows/tests.yml/badge.svg)](https://github.com/kaveraa/keycloak-sanctum-vue/actions/workflows/tests.yml)
 [![npm](https://img.shields.io/npm/v/@kaveraa/keycloak-sanctum-vue.svg)](https://www.npmjs.com/package/@kaveraa/keycloak-sanctum-vue)
-[![Licence](https://img.shields.io/github/license/kaveraa/keycloak-sanctum-vue.svg)](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/LICENSE)
-[![Taille](https://img.shields.io/bundlephobia/minzip/@kaveraa/keycloak-sanctum-vue.svg)](https://bundlephobia.com/package/@kaveraa/keycloak-sanctum-vue)
+[![License](https://img.shields.io/github/license/kaveraa/keycloak-sanctum-vue.svg)](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/LICENSE)
+[![Size](https://img.shields.io/bundlephobia/minzip/@kaveraa/keycloak-sanctum-vue.svg)](https://bundlephobia.com/package/@kaveraa/keycloak-sanctum-vue)
 
-**Français** - [English](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/README.en.md)
+**English** - [Français](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/README.fr.md)
 
-Client **Vue 3** pour la connexion **Keycloak (SSO)** avec une **API Laravel**. C'est la partie front du paquet PHP [kaveraa/laravel-keycloak-sanctum](https://github.com/kaveraa/laravel-keycloak-sanctum).
+**Vue 3** client for **Keycloak login (SSO)** with a **Laravel API**. It is the front-end part of the PHP package [kaveraa/laravel-keycloak-sanctum](https://github.com/kaveraa/laravel-keycloak-sanctum).
 
 ```js
 const auth = useAuth()
 
-auth.login()                     // connexion Keycloak
-auth.user.value                  // utilisateur connecté
-auth.hasRole('admin')            // rôles
-auth.fetch('/api/projects')      // appels à l'API avec le jeton
-auth.logout()                    // déconnexion (API + Keycloak)
+auth.login()                     // Keycloak login
+auth.user.value                  // logged-in user
+auth.hasRole('admin')            // roles
+auth.fetch('/api/projects')      // API calls with the token
+auth.logout()                    // logout (API + Keycloak)
 ```
 
-- **Prêt à l'emploi** : un plugin Vue, un composable `useAuth()`, un garde pour vue-router.
-- **Réactif** : `user`, `roles`, `isAuthenticated` sont des `ref` Vue, utilisables directement dans les templates.
-- **Sécurisé** : le jeton n'est envoyé qu'à votre API, jamais à un autre site. La page de retour après connexion ne peut pas renvoyer vers un site externe.
-- **Plusieurs onglets** : une connexion ou une déconnexion dans un onglet est suivie par les autres.
-- **Inactivité** (facultative) : déconnexion automatique, avec un avertissement avant.
-- **fetch ou axios** : `auth.fetch()` intégré, ou `attachAxios()` pour une instance axios existante.
-- **Léger** : aucune dépendance en dehors de Vue. Écrit en TypeScript.
+- **Ready to use**: a Vue plugin, a `useAuth()` composable, a guard for vue-router.
+- **Reactive**: `user`, `roles`, `isAuthenticated` are Vue `ref`s, you can use them directly in templates.
+- **Secure**: the token is only sent to your API, never to another site. The return page after login cannot send the user to an external site.
+- **Several tabs**: a login or a logout in one tab is followed by the other tabs.
+- **Inactivity** (optional): automatic logout, with a warning before.
+- **fetch or axios**: built-in `auth.fetch()`, or `attachAxios()` for an existing axios instance.
+- **Small**: no dependency except Vue. Written in TypeScript.
 
 ---
 
-## Sommaire
+## Contents
 
-- [Prérequis](#prérequis)
+- [Requirements](#requirements)
 - [Installation](#installation)
-- [Mise en place](#mise-en-place)
-- [Page de retour après connexion](#page-de-retour-après-connexion)
-- [Protéger les pages](#protéger-les-pages)
-- [Appeler l'API](#appeler-lapi)
-- [Utilisateur et rôles](#utilisateur-et-rôles)
-- [Déconnexion](#déconnexion)
-- [Inactivité](#inactivité)
-- [Toutes les options](#toutes-les-options)
+- [Setup](#setup)
+- [Return page after login](#return-page-after-login)
+- [Protect pages](#protect-pages)
+- [Call the API](#call-the-api)
+- [User and roles](#user-and-roles)
+- [Logout](#logout)
+- [Inactivity](#inactivity)
+- [All options](#all-options)
 - [TypeScript](#typescript)
-- [Sécurité](#sécurité)
-- [Développement](#développement)
+- [Security](#security)
+- [Development](#development)
 
-## Prérequis
+## Requirements
 
-- Vue 3.3+ (et vue-router 4 ou 5 pour le garde de navigation, facultatif).
-- Une API Laravel avec [kaveraa/laravel-keycloak-sanctum](https://github.com/kaveraa/laravel-keycloak-sanctum). Dans son `.env`, la page de retour doit pointer vers le front :
+- Vue 3.3+ (and vue-router 4 or 5 for the navigation guard, optional).
+- A Laravel API with [kaveraa/laravel-keycloak-sanctum](https://github.com/kaveraa/laravel-keycloak-sanctum). In its `.env`, the return page must point to the front-end:
 
 ```dotenv
 KEYCLOAK_SANCTUM_FRONTEND_CALLBACK_URL=https://app.example.org/login/callback
@@ -62,7 +62,7 @@ KEYCLOAK_SANCTUM_FRONTEND_CALLBACK_URL=https://app.example.org/login/callback
 npm install @kaveraa/keycloak-sanctum-vue
 ```
 
-## Mise en place
+## Setup
 
 ```js
 // src/auth.js
@@ -83,7 +83,7 @@ import { auth } from './auth'
 createApp(App).use(router).use(auth).mount('#app')
 ```
 
-Dans n'importe quel composant :
+In any component:
 
 ```vue
 <script setup>
@@ -93,16 +93,16 @@ const auth = useAuth()
 </script>
 
 <template>
-  <button v-if="!auth.isAuthenticated.value" @click="auth.login()">Se connecter</button>
-  <span v-else>Bonjour {{ auth.user.value.name }}</span>
+  <button v-if="!auth.isAuthenticated.value" @click="auth.login()">Log in</button>
+  <span v-else>Hello {{ auth.user.value.name }}</span>
 </template>
 ```
 
-L'objet `auth` créé dans `src/auth.js` s'utilise aussi en dehors des composants : routeur, stores Pinia, services.
+You can also use the `auth` object from `src/auth.js` outside components: router, Pinia stores, services.
 
-## Page de retour après connexion
+## Return page after login
 
-Après la connexion Keycloak, l'API redirige vers la page du front avec `?code=...`. Cette page échange le code contre le jeton :
+After the Keycloak login, the API redirects to the front-end page with `?code=...`. This page exchanges the code for the token:
 
 ```vue
 <!-- src/views/LoginCallback.vue (route /login/callback) -->
@@ -116,9 +116,9 @@ const router = useRouter()
 const error = ref(null)
 
 const messages = {
-  access_denied: 'Connexion annulée.',
-  user_not_found: 'Votre compte n\'a pas accès à cette application.',
-  no_role: 'Vous n\'avez aucun rôle dans cette application.',
+  access_denied: 'Login cancelled.',
+  user_not_found: 'Your account has no access to this application.',
+  no_role: 'You have no role in this application.',
 }
 
 onMounted(async () => {
@@ -127,30 +127,30 @@ onMounted(async () => {
   if (result.ok) {
     router.replace(result.returnTo ?? '/')
   } else {
-    error.value = messages[result.error] ?? 'La connexion a échoué, réessayez.'
+    error.value = messages[result.error] ?? 'Login failed, please try again.'
   }
 })
 </script>
 
 <template>
-  <p v-if="error">{{ error }} <button @click="auth.login()">Réessayer</button></p>
-  <p v-else>Connexion en cours...</p>
+  <p v-if="error">{{ error }} <button @click="auth.login()">Try again</button></p>
+  <p v-else>Logging in...</p>
 </template>
 ```
 
-| Erreur (`result.error`) | Signification |
+| Error (`result.error`) | Meaning |
 |---|---|
-| `access_denied` | L'utilisateur a annulé dans Keycloak |
-| `user_not_found` | Utilisateur inconnu de l'application (création automatique désactivée côté API) |
-| `no_role` | Aucun rôle, alors que l'API en exige un |
-| `invalid_token`, `authentication_failed` | Problème de connexion avec Keycloak |
-| `invalid_code` | Code expiré ou déjà utilisé (page rechargée, par exemple) |
-| `missing_code` | Page ouverte sans `?code=` |
-| `network_error` | L'API ne répond pas |
+| `access_denied` | The user cancelled in Keycloak |
+| `user_not_found` | User unknown to the application (automatic creation turned off in the API) |
+| `no_role` | No role, but the API needs one |
+| `invalid_token`, `authentication_failed` | Login problem with Keycloak |
+| `invalid_code` | Code expired or already used (page reloaded, for example) |
+| `missing_code` | Page opened without `?code=` |
+| `network_error` | The API does not answer |
 
-## Protéger les pages
+## Protect pages
 
-Ajoutez `requiresAuth` ou `roles` dans les `meta` des routes, puis le garde :
+Add `requiresAuth` or `roles` in the route `meta`, then the guard:
 
 ```js
 // src/router.js
@@ -165,7 +165,7 @@ const router = createRouter({
     { path: '/login', name: 'login', component: Login },
     { path: '/login/callback', component: LoginCallback },
     { path: '/projects', component: Projects, meta: { requiresAuth: true } },
-    { path: '/admin', component: Admin, meta: { roles: ['admin'] } }, // roles implique requiresAuth
+    { path: '/admin', component: Admin, meta: { roles: ['admin'] } }, // roles means requiresAuth too
   ],
 })
 
@@ -174,14 +174,14 @@ router.beforeEach(createAuthGuard(auth, { loginRoute: { name: 'login' } }))
 export default router
 ```
 
-- **Utilisateur non connecté** : il est envoyé vers `loginRoute` avec `?redirect=/page-demandee`. Sur cette page, `auth.login(route.query.redirect)` le ramènera au bon endroit après la connexion.
-- **Sans `loginRoute`** : la connexion Keycloak démarre directement.
-- **Rôle manquant** : la navigation est annulée, ou l'utilisateur est envoyé vers `forbiddenRoute` si vous la précisez.
-- Les `meta` des routes parentes s'appliquent aux routes enfants.
+- **User not logged in**: sent to `loginRoute` with `?redirect=/requested-page`. On this page, `auth.login(route.query.redirect)` brings the user back to the right place after login.
+- **Without `loginRoute`**: the Keycloak login starts directly.
+- **Missing role**: the navigation is cancelled, or the user is sent to `forbiddenRoute` if you set it.
+- The `meta` of parent routes also apply to child routes.
 
-## Appeler l'API
+## Call the API
 
-**Avec fetch** : `auth.fetch()` ajoute le jeton, et les chemins qui commencent par `/` partent vers `apiUrl`.
+**With fetch**: `auth.fetch()` adds the token, and paths that start with `/` go to `apiUrl`.
 
 ```js
 const response = await auth.fetch('/api/projects')
@@ -190,7 +190,7 @@ const projects = await response.json()
 await auth.fetch('/api/projects', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } })
 ```
 
-**Avec axios** :
+**With axios**:
 
 ```js
 import axios from 'axios'
@@ -202,7 +202,7 @@ export const api = attachAxios(auth, axios.create({ baseURL: import.meta.env.VIT
 const { data } = await api.get('/api/projects')
 ```
 
-Dans les deux cas, une réponse **401** de l'API (jeton expiré, déconnexion depuis Keycloak, inactivité) efface la session et appelle `onUnauthenticated` :
+In both cases, a **401** answer from the API (expired token, logout from Keycloak, inactivity) clears the session and calls `onUnauthenticated`:
 
 ```js
 export const auth = createKeycloakSanctum({
@@ -211,46 +211,46 @@ export const auth = createKeycloakSanctum({
 })
 ```
 
-## Utilisateur et rôles
+## User and roles
 
-| Propriété / méthode | Rôle |
+| Property / method | Use |
 |---|---|
-| `auth.isAuthenticated.value` | `true` si un jeton est présent |
-| `auth.user.value` | Utilisateur envoyé par l'API, ou `null` |
-| `auth.roles.value` | Rôles de l'utilisateur (`[]` si aucun) |
-| `auth.token.value` | Jeton Sanctum, ou `null` |
-| `auth.hasRole('admin', 'editor')` | A au moins un des rôles |
-| `auth.hasAllRoles('admin', 'editor')` | A tous les rôles |
-| `auth.fetchUser()` | Recharge l'utilisateur depuis l'API (`GET /sso/user`) |
+| `auth.isAuthenticated.value` | `true` if there is a token |
+| `auth.user.value` | User sent by the API, or `null` |
+| `auth.roles.value` | Roles of the user (`[]` if none) |
+| `auth.token.value` | Sanctum token, or `null` |
+| `auth.hasRole('admin', 'editor')` | Has at least one of the roles |
+| `auth.hasAllRoles('admin', 'editor')` | Has all the roles |
+| `auth.fetchUser()` | Reloads the user from the API (`GET /sso/user`) |
 
-Dans les templates, `$auth` est aussi disponible :
+In templates, `$auth` is also available:
 
 ```vue
 <button v-if="$auth.hasRole('admin')">Administration</button>
 ```
 
-## Déconnexion
+## Logout
 
 ```js
 await auth.logout()
 ```
 
-`logout()` supprime le jeton côté API, efface la session locale, puis redirige vers la déconnexion Keycloak. La session SSO est ainsi fermée elle aussi. Avec `auth.logout({ redirect: false })`, la redirection n'a pas lieu et l'adresse de déconnexion Keycloak est retournée.
+`logout()` deletes the token in the API, clears the local session, then redirects to the Keycloak logout. So the SSO session is closed too. With `auth.logout({ redirect: false })`, there is no redirect and the Keycloak logout address is returned.
 
-## Inactivité
+## Inactivity
 
 ```js
 export const auth = createKeycloakSanctum({
   apiUrl: import.meta.env.VITE_API_URL,
-  inactivity: { warnBefore: 60 }, // délai lu dans l'API (KEYCLOAK_SANCTUM_IDLE_TIMEOUT)
-  // inactivity: { timeout: 30 }, // ou délai fixe, en minutes
+  inactivity: { warnBefore: 60 }, // delay read from the API (KEYCLOAK_SANCTUM_IDLE_TIMEOUT)
+  // inactivity: { timeout: 30 }, // or a fixed delay, in minutes
   onUnauthenticated: () => router.push({ name: 'login' }),
 })
 ```
 
-Sans souris, clavier, défilement ni toucher pendant le délai, l'utilisateur est déconnecté et `onUnauthenticated` est appelé. L'activité dans un onglet compte pour tous les onglets.
+With no mouse, keyboard, scroll or touch during the delay, the user is logged out and `onUnauthenticated` is called. Activity in one tab counts for all tabs.
 
-Afficher un avertissement :
+Show a warning:
 
 ```vue
 <script setup>
@@ -261,27 +261,27 @@ const { inactivity } = useAuth()
 
 <template>
   <div v-if="inactivity?.warning.value" class="alert">
-    Déconnexion dans {{ inactivity.secondsLeft.value }} secondes.
-    <button @click="inactivity.touch()">Rester connecté</button>
+    Logout in {{ inactivity.secondsLeft.value }} seconds.
+    <button @click="inactivity.touch()">Stay logged in</button>
   </div>
 </template>
 ```
 
-## Toutes les options
+## All options
 
-| Option | Défaut | Rôle |
+| Option | Default | Use |
 |---|---|---|
-| `apiUrl` | `''` (même domaine) | Adresse de l'API Laravel |
-| `prefix` | `'/sso'` | Préfixe des routes du paquet Laravel |
-| `storage` | `'local'` | `'local'` (garde la session), `'session'` (un onglet), `'memory'` (rien n'est gardé), ou un objet compatible `Storage` |
-| `storageKey` | `'keycloak-sanctum'` | Clé utilisée dans le stockage |
-| `onUnauthenticated` | - | Appelé quand la session se termine (401, inactivité) |
+| `apiUrl` | `''` (same domain) | Address of the Laravel API |
+| `prefix` | `'/sso'` | Prefix of the Laravel package routes |
+| `storage` | `'local'` | `'local'` (keeps the session), `'session'` (one tab), `'memory'` (nothing is kept), or an object compatible with `Storage` |
+| `storageKey` | `'keycloak-sanctum'` | Key used in the storage |
+| `onUnauthenticated` | - | Called when the session ends (401, inactivity) |
 | `inactivity` | `false` | `{ timeout?, warnBefore?, events? }` |
-| `fetch` | `window.fetch` | Fonction fetch à utiliser |
+| `fetch` | `window.fetch` | fetch function to use |
 
 ## TypeScript
 
-Le paquet est écrit en TypeScript. Précisez la forme de votre utilisateur :
+The package is written in TypeScript. Give the shape of your user:
 
 ```ts
 interface User {
@@ -294,21 +294,21 @@ interface User {
 export const auth = createKeycloakSanctum<User>({ apiUrl: import.meta.env.VITE_API_URL })
 
 const auth = useAuth<User>()
-auth.user.value?.email // typé
+auth.user.value?.email // typed
 ```
 
-Les `meta` de vue-router (`requiresAuth`, `roles`) sont aussi typées.
+The vue-router `meta` (`requiresAuth`, `roles`) are typed too.
 
-## Sécurité
+## Security
 
-- **Le jeton n'est envoyé qu'à l'API** : `auth.fetch()` et `attachAxios()` ne l'ajoutent qu'aux requêtes vers le domaine de `apiUrl`.
-- **Page de retour** : `login(returnTo)` n'accepte que des chemins du site (`/...`). Une adresse externe est ignorée.
-- **Stockage** : avec `'local'` (le défaut), le jeton est gardé dans `localStorage`, comme la plupart des SPA. Il est donc lisible par un script injecté dans la page (faille XSS). Protégez votre front contre les XSS (pas de `v-html` sur des données utilisateur, en-tête Content-Security-Policy). Pour limiter l'exposition, utilisez `'session'` ou `'memory'`, et une durée de vie courte côté API (`KEYCLOAK_SANCTUM_TOKEN_EXPIRATION`).
-- La vérification des jetons Keycloak se fait côté API, dans le paquet Laravel.
+- **The token is only sent to the API**: `auth.fetch()` and `attachAxios()` only add it to requests to the `apiUrl` domain.
+- **Return page**: `login(returnTo)` only accepts paths of the site (`/...`). An external address is ignored.
+- **Storage**: with `'local'` (the default), the token is kept in `localStorage`, like most SPAs. So a script injected in the page (XSS) can read it. Protect your front-end against XSS (no `v-html` with user data, Content-Security-Policy header). To reduce the risk, use `'session'` or `'memory'`, and a short token lifetime in the API (`KEYCLOAK_SANCTUM_TOKEN_EXPIRATION`).
+- The Keycloak tokens are checked in the API, by the Laravel package.
 
-Pour signaler une faille, ouvrez une [alerte de sécurité privée](https://github.com/kaveraa/keycloak-sanctum-vue/security/advisories/new) plutôt qu'une issue publique.
+To report a security problem, open a [private security advisory](https://github.com/kaveraa/keycloak-sanctum-vue/security/advisories/new), not a public issue.
 
-## Développement
+## Development
 
 ```bash
 git clone https://github.com/kaveraa/keycloak-sanctum-vue.git
@@ -318,8 +318,8 @@ npm test
 npm run build
 ```
 
-Pour proposer une modification, lisez le guide [CONTRIBUTING.md](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/CONTRIBUTING.md). Voir le [CHANGELOG](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/CHANGELOG.md) pour l'historique des versions.
+To propose a change, read the [CONTRIBUTING.md](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/CONTRIBUTING.md) guide. See the [CHANGELOG](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/CHANGELOG.md) for the list of versions.
 
-## Licence
+## License
 
-MIT. Voir [LICENSE](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/LICENSE).
+MIT. See [LICENSE](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/LICENSE).
