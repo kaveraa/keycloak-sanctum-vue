@@ -4,8 +4,8 @@
 
 [![Tests](https://github.com/kaveraa/keycloak-sanctum-vue/actions/workflows/tests.yml/badge.svg)](https://github.com/kaveraa/keycloak-sanctum-vue/actions/workflows/tests.yml)
 [![npm](https://img.shields.io/npm/v/@kaveraa/keycloak-sanctum-vue.svg)](https://www.npmjs.com/package/@kaveraa/keycloak-sanctum-vue)
+[![Téléchargements](https://img.shields.io/npm/dm/@kaveraa/keycloak-sanctum-vue.svg)](https://www.npmjs.com/package/@kaveraa/keycloak-sanctum-vue)
 [![Licence](https://img.shields.io/github/license/kaveraa/keycloak-sanctum-vue.svg)](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/LICENSE)
-[![Taille](https://img.shields.io/bundlephobia/minzip/@kaveraa/keycloak-sanctum-vue.svg)](https://bundlephobia.com/package/@kaveraa/keycloak-sanctum-vue)
 
 [English](https://github.com/kaveraa/keycloak-sanctum-vue/blob/main/README.md) - **Français**
 
