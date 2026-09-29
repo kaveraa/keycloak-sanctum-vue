@@ -4,6 +4,13 @@
 
 **EN** All important changes of the package are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
+## [1.0.1] - 2026-09-29
+
+### Documentation
+
+- **FR** Le README affiché par défaut est maintenant en anglais (`README.md`), le français est dans `README.fr.md`.
+  **EN** The default README is now in English (`README.md`), the French version is in `README.fr.md`.
+
 ## [1.0.0] - 2026-09-25
 
 ### Ajouté / Added
@@ -17,4 +24,5 @@
 - **FR** Suivi de la session entre onglets, et déconnexion après inactivité avec avertissement.
   **EN** Session sync between tabs, and logout after inactivity with a warning.
 
+[1.0.1]: https://github.com/kaveraa/keycloak-sanctum-vue/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/kaveraa/keycloak-sanctum-vue/releases/tag/v1.0.0
