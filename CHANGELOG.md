@@ -4,6 +4,20 @@
 
 **EN** All important changes of the package are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
+## [1.0.3] - 2026-09-30
+
+### Documentation
+
+- **FR** L'URL de la bannière du README pointe sur un commit précis, plus sur la branche `main`, pour que les sites qui affichent le README montrent toujours la bannière en cours. Le guide de contribution explique la marche à suivre quand la bannière change.
+  **EN** The README banner URL now points to a fixed commit instead of the `main` branch, so sites that show the README always display the current banner. The contributing guide explains what to do when the banner changes.
+
+## [1.0.2] - 2026-09-29
+
+### Documentation
+
+- **FR** Badges du README mis à jour (téléchargements npm à la place de Bundlephobia) et actions de la CI mises à jour.
+  **EN** README badges updated (npm downloads instead of Bundlephobia) and CI actions bumped.
+
 ## [1.0.1] - 2026-09-29
 
 ### Documentation
