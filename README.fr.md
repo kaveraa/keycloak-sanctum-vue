@@ -1,6 +1,6 @@
 # Keycloak Sanctum Vue
 
-<p align="center"><img src="https://raw.githubusercontent.com/kaveraa/keycloak-sanctum-vue/main/art/banner.svg" alt="Keycloak Sanctum Vue" width="100%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/kaveraa/keycloak-sanctum-vue/76c7766/art/banner.svg" alt="Keycloak Sanctum Vue" width="100%"></p>
 
 [![Tests](https://github.com/kaveraa/keycloak-sanctum-vue/actions/workflows/tests.yml/badge.svg)](https://github.com/kaveraa/keycloak-sanctum-vue/actions/workflows/tests.yml)
 [![npm](https://img.shields.io/npm/v/@kaveraa/keycloak-sanctum-vue.svg)](https://www.npmjs.com/package/@kaveraa/keycloak-sanctum-vue)
