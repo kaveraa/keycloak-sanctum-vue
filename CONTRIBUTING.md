@@ -51,6 +51,13 @@ Poussez votre branche, ouvrez une PR vers `main` et remplissez la checklist prop
 
 Après la fusion : mettre à jour la version dans `package.json` et le `CHANGELOG.md` (via une PR), créer un tag `vX.Y.Z` sur `main`, puis lancer `npm publish`.
 
+### Changer la bannière (mainteneur)
+
+Les README chargent `art/banner.svg` par une URL qui nomme un commit, pas la branche `main`. Certains sites qui affichent un README (Packagist, pour les paquets PHP) mettent en cache une URL de branche pendant un an ; la même règle vaut pour tous les paquets. Quand la bannière change :
+
+1. Commiter le nouveau `art/banner.svg`.
+2. Mettre ce commit dans l'URL de l'image de `README.md` et `README.fr.md`, dans un second commit.
+
 ---
 
 ## English
@@ -101,3 +108,10 @@ Push your branch, open a PR to `main` and fill in the checklist. The PR can be m
 ### Release a version (maintainer)
 
 After the merge: update the version in `package.json` and the `CHANGELOG.md` (with a PR), create a `vX.Y.Z` tag on `main`, then run `npm publish`.
+
+### Change the banner (maintainer)
+
+The README files load `art/banner.svg` through a URL that names a commit, not the `main` branch. Some sites that show a README (Packagist, for the PHP packages) cache a branch URL for a year; the same rule applies to every package. When the banner changes:
+
+1. Commit the new `art/banner.svg`.
+2. Put that commit in the image URL of `README.md` and `README.fr.md`, in a second commit.
