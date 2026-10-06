@@ -8,8 +8,8 @@
 
 ### Maintenance
 
-- **FR** Compatibilité avec TypeScript 6 (`ignoreDeprecations` dans `tsconfig.json`, en attendant un correctif de tsup). Aucun changement dans le code.
-  **EN** Compatibility with TypeScript 6 (`ignoreDeprecations` in `tsconfig.json`, until tsup ships a fix). No code change.
+- **FR** Le paquet est construit avec tsdown à la place de tsup, qui ne prend pas en charge TypeScript 6. Mêmes fichiers dans `dist/`, aucun changement dans le code. Pour développer, il faut maintenant Node.js 22 ou plus.
+  **EN** The package is built with tsdown instead of tsup, which does not support TypeScript 6. Same files in `dist/`, no code change. Development now needs Node.js 22 or more.
 
 ## [1.0.3] - 2026-09-30
 

@@ -14,7 +14,7 @@ cd keycloak-sanctum-vue
 npm install
 ```
 
-Il faut Node.js 20 ou plus.
+Il faut Node.js 22 ou plus.
 
 ### 2. Créer une branche
 
@@ -72,7 +72,7 @@ cd keycloak-sanctum-vue
 npm install
 ```
 
-You need Node.js 20 or more.
+You need Node.js 22 or more.
 
 ### 2. Create a branch
 
