@@ -1,6 +1,6 @@
 /**
- * Utilisateur renvoyé par l'API (routes /sso/token et /sso/user).
- * Le contenu dépend de l'application : on le précise avec useAuth<MonUtilisateur>().
+ * User returned by the API (/sso/token and /sso/user routes).
+ * Its content depends on the application: specify it with useAuth<MyUser>().
  */
 export interface AuthUser {
   roles?: string[]
@@ -8,54 +8,54 @@ export interface AuthUser {
 }
 
 /**
- * Stockage du jeton : 'local' (localStorage, garde la session après fermeture du navigateur),
- * 'session' (sessionStorage, un onglet), 'memory' (rien n'est gardé), ou un objet compatible Storage.
+ * Token storage: 'local' (localStorage, keeps the session after the browser is closed),
+ * 'session' (sessionStorage, one tab), 'memory' (nothing is kept), or a Storage-compatible object.
  */
 export type StorageOption = 'local' | 'session' | 'memory' | Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>
 
 export interface InactivityOptions {
   /**
-   * Délai d'inactivité en minutes. Par défaut : la valeur idle_timeout donnée par l'API (/sso/settings).
+   * Inactivity delay in minutes. Default: the idle_timeout value given by the API (/sso/settings).
    */
   timeout?: number
-  /** Nombre de secondes avant la déconnexion pendant lesquelles "warning" passe à true. Défaut : 60. */
+  /** Number of seconds before logout during which "warning" is true. Default: 60. */
   warnBefore?: number
-  /** Événements du navigateur qui comptent comme une activité. */
+  /** Browser events that count as activity. */
   events?: string[]
 }
 
 export interface KeycloakSanctumOptions {
-  /** Adresse de l'API Laravel, par exemple https://api.example.org. Vide = même domaine que le front. */
+  /** URL of the Laravel API, for example https://api.example.org. Empty = same domain as the front-end. */
   apiUrl?: string
-  /** Préfixe des routes du paquet Laravel. Défaut : /sso */
+  /** Route prefix of the Laravel package. Default: /sso */
   prefix?: string
-  /** Où garder le jeton. Défaut : 'local' */
+  /** Where to keep the token. Default: 'local' */
   storage?: StorageOption
-  /** Clé utilisée dans le stockage. Défaut : 'keycloak-sanctum' */
+  /** Key used in storage. Default: 'keycloak-sanctum' */
   storageKey?: string
   /**
-   * Appelé quand l'API répond 401 (jeton expiré, déconnexion depuis Keycloak, inactivité).
-   * La session locale est déjà effacée à ce moment. Par défaut : rien.
+   * Called when the API answers 401 (expired token, logout from Keycloak, inactivity).
+   * The local session is already cleared at that point. Default: nothing.
    */
   onUnauthenticated?: () => void
-  /** Déconnexion automatique après une période sans activité. false = désactivée (défaut). */
+  /** Automatic logout after a period without activity. false = disabled (default). */
   inactivity?: false | InactivityOptions
-  /** Fonction fetch à utiliser (tests, environnements particuliers). Défaut : window.fetch */
+  /** fetch function to use (tests, special environments). Default: window.fetch */
   fetch?: typeof fetch
 }
 
-/** Résultat de handleCallback(), sur la page qui reçoit ?code=... */
+/** Result of handleCallback(), on the page that receives ?code=... */
 export type CallbackResult<TUser extends AuthUser = AuthUser> =
   | { ok: true; user: TUser; returnTo: string | null }
   | { ok: false; error: CallbackError; returnTo: string | null }
 
 /**
- * Erreurs possibles :
- * - erreurs envoyées par l'API dans ?error= : access_denied, authentication_failed, invalid_token,
+ * Possible errors:
+ * - errors sent by the API in ?error=: access_denied, authentication_failed, invalid_token,
  *   user_not_found, no_role
- * - missing_code : la page a été ouverte sans ?code=
- * - invalid_code : code expiré ou déjà utilisé
- * - network_error : l'API n'a pas répondu
+ * - missing_code: the page was opened without ?code=
+ * - invalid_code: code expired or already used
+ * - network_error: the API did not answer
  */
 export type CallbackError =
   | 'access_denied'

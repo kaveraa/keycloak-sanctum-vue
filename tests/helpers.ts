@@ -5,7 +5,7 @@ import type { KeycloakSanctumOptions } from '../src'
 export const API = 'https://api.example.test'
 
 /**
- * Faux serveur : chaque route "METHODE /chemin" retourne [statut, corps JSON].
+ * Fake server: each "METHOD /path" route returns [status, JSON body].
  */
 export function fakeApi(routes: Record<string, [number, unknown] | (() => never)>) {
   return vi.fn(async (input: RequestInfo | URL, init: RequestInit = {}) => {
@@ -32,7 +32,7 @@ export function makeAuth(options: KeycloakSanctumOptions = {}, routes: Parameter
 }
 
 /**
- * Empêche la vraie navigation et enregistre les adresses demandées.
+ * Prevents real navigation and records the requested URLs.
  */
 export function mockNavigation() {
   return vi.spyOn(window.location, 'assign').mockImplementation(() => undefined)

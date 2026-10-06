@@ -1,7 +1,7 @@
 import type { KeycloakSanctum } from './auth'
 
 /**
- * Forme minimale d'une instance axios : le paquet ne dépend pas d'axios.
+ * Minimal shape of an axios instance: the package does not depend on axios.
  */
 interface AxiosLike {
   defaults?: { baseURL?: string }
@@ -12,8 +12,8 @@ interface AxiosLike {
 }
 
 /**
- * Branche le jeton sur une instance axios : ajoute "Authorization: Bearer ..." aux requêtes vers
- * l'API, et efface la session quand l'API répond 401.
+ * Plugs the token into an axios instance: adds "Authorization: Bearer ..." to requests sent to
+ * the API, and clears the session when the API answers 401.
  *
  *     const api = axios.create({ baseURL: 'https://api.example.org' })
  *     attachAxios(auth, api)
