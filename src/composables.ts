@@ -3,7 +3,7 @@ import { AUTH_KEY, type KeycloakSanctum } from './auth'
 import type { AuthUser } from './types'
 
 /**
- * Accès au client d'authentification dans un composant.
+ * Access to the authentication client inside a component.
  *
  *     const auth = useAuth()
  *     auth.user.value, auth.isAuthenticated.value, auth.hasRole('admin'), auth.logout()

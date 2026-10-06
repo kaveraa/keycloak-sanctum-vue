@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-  # Permet de relancer la suite à la main sur une branche, depuis l'onglet Actions.
+  # Lets you run the suite by hand on a branch, from the Actions tab.
   workflow_dispatch:
 
 jobs:
@@ -36,8 +36,8 @@ jobs:
       - run: npm test
       - run: npm run build
 
-  # Contrôle unique exigé par la protection de la branche main :
-  # il ne passe que si tous les jobs de la matrice ont réussi.
+  # Single check required by the main branch protection:
+  # it passes only if all matrix jobs succeeded.
   tests-passed:
     name: All tests passed
     needs: tests

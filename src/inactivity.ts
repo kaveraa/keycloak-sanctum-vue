@@ -6,18 +6,18 @@ const DEFAULT_EVENTS = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchsta
 
 interface Callbacks {
   onTimeout: () => void
-  /** Clé de stockage partagée pour que l'activité d'un onglet compte pour les autres */
+  /** Shared storage key so that activity in one tab counts for the others */
   storageKey: string
 }
 
 /**
- * Déconnexion après une période sans activité (souris, clavier, défilement, toucher).
- * L'activité dans un onglet repousse la déconnexion dans tous les onglets.
+ * Logout after a period without activity (mouse, keyboard, scroll, touch).
+ * Activity in one tab delays the logout in all tabs.
  */
 export class InactivityTimer {
-  /** Secondes restantes avant la déconnexion, ou null si le minuteur est arrêté */
+  /** Seconds left before logout, or null if the timer is stopped */
   readonly secondsLeft: Ref<number | null> = shallowRef(null)
-  /** true pendant les dernières secondes (warnBefore) : moment d'afficher un avertissement */
+  /** true during the last seconds (warnBefore): time to show a warning */
   readonly warning: ComputedRef<boolean> = computed(
     () => this.secondsLeft.value !== null && this.secondsLeft.value <= this.warnBefore,
   )
@@ -45,7 +45,7 @@ export class InactivityTimer {
   }
 
   /**
-   * @param minutes délai d'inactivité
+   * @param minutes inactivity delay
    */
   start(minutes: number): void {
     this.stop()
@@ -76,7 +76,7 @@ export class InactivityTimer {
   }
 
   /**
-   * Compte une activité (par exemple un bouton "Rester connecté" dans l'avertissement).
+   * Counts an activity (for example a "Stay logged in" button in the warning).
    */
   touch(): void {
     this.onActivity()
@@ -86,13 +86,13 @@ export class InactivityTimer {
     const now = Date.now()
     this.lastActivity = now
 
-    // Partage l'activité avec les autres onglets, au plus toutes les 5 secondes
+    // Shares the activity with the other tabs, at most every 5 seconds
     if (now - this.lastShared > 5000) {
       this.lastShared = now
       try {
         this.shared.setItem(this.callbacks.storageKey, String(now))
       } catch {
-        // stockage indisponible : chaque onglet compte sa propre activité
+        // storage unavailable: each tab counts its own activity
       }
     }
 

@@ -23,19 +23,19 @@ export function resolveStorage(option: StorageOption): SimpleStorage {
     return option
   }
 
-  // Le navigateur peut refuser l'accès au stockage (navigation privée, cookies bloqués)
+  // The browser may refuse access to storage (private browsing, blocked cookies)
   try {
     if (option === 'local' && typeof localStorage !== 'undefined') return localStorage
     if (option === 'session' && typeof sessionStorage !== 'undefined') return sessionStorage
   } catch {
-    // on garde la session en mémoire
+    // keep the session in memory
   }
 
   return memoryStorage()
 }
 
 /**
- * Lit et écrit la session (jeton + utilisateur) dans le stockage choisi.
+ * Reads and writes the session (token + user) in the chosen storage.
  */
 export class SessionStore<TUser extends AuthUser = AuthUser> {
   constructor(
@@ -58,7 +58,7 @@ export class SessionStore<TUser extends AuthUser = AuthUser> {
     try {
       this.storage.setItem(this.key, JSON.stringify(session))
     } catch {
-      // stockage plein ou refusé : la session reste en mémoire pour cet onglet
+      // storage full or refused: the session stays in memory for this tab
     }
   }
 
@@ -66,7 +66,7 @@ export class SessionStore<TUser extends AuthUser = AuthUser> {
     try {
       this.storage.removeItem(this.key)
     } catch {
-      // rien à faire
+      // nothing to do
     }
   }
 }

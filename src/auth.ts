@@ -11,15 +11,15 @@ interface ServerSettings {
 }
 
 /**
- * Client d'authentification : garde le jeton Sanctum et l'utilisateur, parle aux routes /sso
- * de l'API Laravel. C'est aussi le plugin Vue (app.use(auth)).
+ * Authentication client: keeps the Sanctum token and the user, talks to the /sso routes
+ * of the Laravel API. It is also the Vue plugin (app.use(auth)).
  */
 export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
-  /** Utilisateur connecté, ou null */
+  /** Logged-in user, or null */
   readonly user: Ref<TUser | null> = shallowRef(null)
-  /** Jeton Sanctum, ou null */
+  /** Sanctum token, or null */
   readonly token: Ref<string | null> = shallowRef(null)
-  /** Date d'expiration du jeton (ISO 8601), ou null si le jeton n'expire pas */
+  /** Token expiry date (ISO 8601), or null if the token does not expire */
   readonly expiresAt: Ref<string | null> = shallowRef(null)
 
   readonly isAuthenticated: ComputedRef<boolean> = computed(() => this.token.value !== null)
@@ -28,7 +28,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
     return Array.isArray(roles) ? roles.map(String) : []
   })
 
-  /** Minuteur d'inactivité, si l'option inactivity est activée */
+  /** Inactivity timer, if the inactivity option is enabled */
   readonly inactivity: InactivityTimer | null
 
   private readonly apiUrl: string
@@ -57,7 +57,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Plugin Vue : rend l'objet disponible avec useAuth() et $auth dans les templates.
+   * Vue plugin: makes the object available with useAuth() and $auth in templates.
    */
   install(app: App): void {
     app.provide(AUTH_KEY, this)
@@ -66,14 +66,14 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
     void this.startInactivity()
   }
 
-  /** Adresse de la route de connexion de l'API */
+  /** URL of the API login route */
   loginUrl(): string {
     return this.url('/login')
   }
 
   /**
-   * Redirige vers la connexion Keycloak.
-   * @param returnTo chemin du front où revenir après la connexion (ex : '/projets/12')
+   * Redirects to the Keycloak login.
+   * @param returnTo front-end path to come back to after login (e.g. '/projects/12')
    */
   login(returnTo?: string): void {
     if (returnTo !== undefined && isSafePath(returnTo)) {
@@ -84,8 +84,8 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * À appeler sur la page du front qui reçoit ?code=... après la connexion.
-   * Échange le code contre le jeton et enregistre la session.
+   * Call this on the front-end page that receives ?code=... after login.
+   * Exchanges the code for the token and saves the session.
    */
   async handleCallback(url: string = window.location.href): Promise<CallbackResult<TUser>> {
     const params = new URL(url, 'http://localhost').searchParams
@@ -127,7 +127,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Recharge l'utilisateur depuis l'API (GET /sso/user). Retourne null si la session n'est plus valable.
+   * Reloads the user from the API (GET /sso/user). Returns null if the session is no longer valid.
    */
   async fetchUser(): Promise<TUser | null> {
     if (this.token.value === null) {
@@ -146,10 +146,10 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Déconnexion : supprime le jeton côté API, efface la session, puis redirige vers la
-   * déconnexion Keycloak pour fermer aussi la session SSO.
+   * Logout: deletes the token on the API side, clears the session, then redirects to the
+   * Keycloak logout to close the SSO session too.
    *
-   * @returns l'adresse de déconnexion Keycloak (utile avec redirect: false)
+   * @returns the Keycloak logout URL (useful with redirect: false)
    */
   async logout(options: { redirect?: boolean } = {}): Promise<string | null> {
     let logoutUrl: string | null = null
@@ -163,7 +163,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
         const body = (await response.json().catch(() => null)) as { logout_url?: string | null } | null
         logoutUrl = body?.logout_url ?? null
       } catch {
-        // l'API ne répond pas : la session locale est quand même effacée
+        // the API does not answer: the local session is cleared anyway
       }
     }
 
@@ -176,21 +176,21 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
     return logoutUrl
   }
 
-  /** L'utilisateur a-t-il au moins un des rôles donnés ? */
+  /** Does the user have at least one of the given roles? */
   hasRole(...roles: string[]): boolean {
     return roles.some((role) => this.roles.value.includes(role))
   }
 
-  /** L'utilisateur a-t-il tous les rôles donnés ? */
+  /** Does the user have all the given roles? */
   hasAllRoles(...roles: string[]): boolean {
     return roles.every((role) => this.roles.value.includes(role))
   }
 
   /**
-   * fetch() avec le jeton : ajoute "Authorization: Bearer ..." et "Accept: application/json".
-   * Les chemins qui commencent par / sont envoyés à l'API (apiUrl).
-   * Le jeton n'est jamais envoyé à un autre domaine que celui de l'API.
-   * Une réponse 401 efface la session et appelle onUnauthenticated.
+   * fetch() with the token: adds "Authorization: Bearer ..." and "Accept: application/json".
+   * Paths starting with / are sent to the API (apiUrl).
+   * The token is never sent to a domain other than the API's.
+   * A 401 response clears the session and calls onUnauthenticated.
    */
   async fetch(input: string | URL, init: RequestInit = {}): Promise<Response> {
     const url = this.resolveUrl(String(input))
@@ -213,7 +213,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Le jeton doit-il être envoyé à cette adresse ? Oui seulement pour l'API.
+   * Should the token be sent to this URL? Only for the API.
    */
   isApiUrl(url: string): boolean {
     const target = new URL(url, currentOrigin())
@@ -222,13 +222,13 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
     return target.origin === api.origin
   }
 
-  /** Transforme un chemin (/api/...) en adresse complète de l'API */
+  /** Turns a path (/api/...) into a full API URL */
   resolveUrl(url: string): string {
     return url.startsWith('/') && !url.startsWith('//') ? this.apiUrl + url : url
   }
 
   /**
-   * Réglages de l'API (GET /sso/settings), gardés en mémoire.
+   * API settings (GET /sso/settings), kept in memory.
    */
   settings(): Promise<ServerSettings | null> {
     this.settingsPromise ??= this.fetcher(this.url('/settings'), { headers: { Accept: 'application/json' } })
@@ -242,7 +242,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Efface la session locale (sans appeler l'API).
+   * Clears the local session (without calling the API).
    */
   clear(): void {
     this.store.clear()
@@ -251,7 +251,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Session terminée côté API (401) ou inactivité : efface tout et prévient l'application.
+   * Session ended on the API side (401) or by inactivity: clears everything and notifies the app.
    */
   expire(): void {
     const wasAuthenticated = this.isAuthenticated.value
@@ -263,7 +263,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Arrête les écouteurs (onglets, inactivité). Utile dans les tests.
+   * Stops the listeners (tabs, inactivity). Useful in tests.
    */
   destroy(): void {
     this.removeStorageListener?.()
@@ -294,7 +294,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
   }
 
   /**
-   * Connexion ou déconnexion dans un autre onglet : cet onglet suit.
+   * Login or logout in another tab: this tab follows.
    */
   private listenToOtherTabs(): void {
     if (typeof window === 'undefined' || this.removeStorageListener !== null) {
@@ -337,7 +337,7 @@ export class KeycloakSanctum<TUser extends AuthUser = AuthUser> {
 }
 
 /**
- * Chemin interne au site (/projets?x=1), jamais une adresse externe (//site.com, https://...).
+ * Internal site path (/projects?x=1), never an external URL (//site.com, https://...).
  */
 function isSafePath(path: string): boolean {
   return path.startsWith('/') && !path.startsWith('//') && !path.startsWith('/\\')
@@ -348,7 +348,7 @@ function currentOrigin(): string {
 }
 
 /**
- * Crée le client d'authentification (à installer avec app.use()).
+ * Creates the authentication client (install it with app.use()).
  */
 export function createKeycloakSanctum<TUser extends AuthUser = AuthUser>(options: KeycloakSanctumOptions = {}): KeycloakSanctum<TUser> {
   return new KeycloakSanctum<TUser>(options)

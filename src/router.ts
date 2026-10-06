@@ -3,25 +3,25 @@ import type { KeycloakSanctum } from './auth'
 
 declare module 'vue-router' {
   interface RouteMeta {
-    /** La page demande une connexion */
+    /** The page requires login */
     requiresAuth?: boolean
-    /** La page demande au moins un de ces rôles (implique requiresAuth) */
+    /** The page requires at least one of these roles (implies requiresAuth) */
     roles?: string[]
   }
 }
 
 export interface AuthGuardOptions {
   /**
-   * Page de connexion du front. La page demandée est passée dans ?redirect=...
-   * Si absent, le garde lance directement la connexion Keycloak.
+   * Front-end login page. The requested page is passed in ?redirect=...
+   * If absent, the guard starts the Keycloak login directly.
    */
   loginRoute?: RouteLocationRaw
-  /** Page affichée quand l'utilisateur n'a pas le rôle demandé. Défaut : la navigation est annulée. */
+  /** Page shown when the user does not have the required role. Default: the navigation is cancelled. */
   forbiddenRoute?: RouteLocationRaw
 }
 
 /**
- * Garde de navigation pour vue-router, basé sur les meta des routes :
+ * Navigation guard for vue-router, based on the route meta:
  *
  *     { path: '/admin', component: Admin, meta: { requiresAuth: true, roles: ['admin'] } }
  *

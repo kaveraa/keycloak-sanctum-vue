@@ -3,7 +3,7 @@ import { attachAxios } from '../src'
 import { API, makeAuth, storedSession } from './helpers'
 
 /**
- * Imitation d'une instance axios : garde les intercepteurs pour les appeler à la main.
+ * Fake axios instance: keeps the interceptors so they can be called by hand.
  */
 function fakeAxios(baseURL?: string) {
   const handlers: { request?: (c: any) => any; rejected?: (e: any) => any } = {}
