@@ -4,6 +4,13 @@
 
 **EN** All important changes of the package are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Maintenance
+
+- **FR** Compatibilité avec TypeScript 6 (`ignoreDeprecations` dans `tsconfig.json`, en attendant un correctif de tsup). Aucun changement dans le code.
+  **EN** Compatibility with TypeScript 6 (`ignoreDeprecations` in `tsconfig.json`, until tsup ships a fix). No code change.
+
 ## [1.0.3] - 2026-09-30
 
 ### Documentation
