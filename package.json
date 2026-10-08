@@ -1,6 +1,6 @@
 {
   "name": "@kaveraa/keycloak-sanctum-vue",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Vue 3 client for Keycloak login (SSO) with a Laravel API: Sanctum token, user, roles, router guard, authenticated fetch and inactivity logout.",
   "keywords": [
     "vue",

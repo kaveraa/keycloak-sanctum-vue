@@ -4,10 +4,14 @@
 
 **EN** All important changes of the package are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.1.0] - 2026-10-08
 
 ### Maintenance
 
+- **FR** Le champ `engines` du paquet demande maintenant Node.js 22 ou plus, les versions plus anciennes ne sont plus maintenues. Le code publié ne change pas.
+  **EN** The package `engines` field now asks for Node.js 22 or more, as older versions are no longer maintained. The published code does not change.
+- **FR** Le paquet est construit avec TypeScript 7. Les fichiers de types publiés sont identiques.
+  **EN** The package is built with TypeScript 7. The published type files are identical.
 - **FR** Le paquet est construit avec tsdown à la place de tsup, qui ne prend pas en charge TypeScript 6. Mêmes fichiers dans `dist/`, aucun changement dans le code. Pour développer, il faut maintenant Node.js 22 ou plus.
   **EN** The package is built with tsdown instead of tsup, which does not support TypeScript 6. Same files in `dist/`, no code change. Development now needs Node.js 22 or more.
 
