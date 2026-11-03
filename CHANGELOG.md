@@ -4,6 +4,13 @@
 
 **EN** All important changes of the package are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Maintenance
+
+- **FR** Les outils de développement sont mis à jour (vite, vitest, happy-dom, tsdown). `glob` et `minimatch`, utilisés par `@vue/test-utils`, sont forcés vers une version corrigée pour fermer les alertes de sécurité. Ces paquets servent seulement aux tests : le code publié ne change pas.
+  **EN** The development tools are updated (vite, vitest, happy-dom, tsdown). `glob` and `minimatch`, used by `@vue/test-utils`, are forced to a fixed version to close the security alerts. These packages are only used for the tests: the published code does not change.
+
 ## [1.1.0] - 2026-10-08
 
 ### Maintenance
